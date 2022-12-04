@@ -1,0 +1,30 @@
+// QUESTION 2
+
+function d_merge(xs, ys) {
+    
+    // *** Your answer here. ***
+    const new_list = append(xs, ys);
+    return sort(new_list);
+}
+
+function sort(xs) {
+    // your answer here
+    if (is_null(xs)){
+        return xs;
+    }
+    else{
+        const small = smallest(xs);
+        return append(list(small), sort(remove(small, xs)));
+    }
+
+}
+function smallest(xs){
+    return accumulate ((x,y) => x < y ? x : y, head(xs), tail(xs));
+}
+    
+
+
+// TEST:
+const my_list1 = list(2, 4, 5, 9);
+const my_list2 = list(3, 5, 8);
+d_merge(my_list1, my_list2);
