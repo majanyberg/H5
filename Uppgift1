@@ -5,12 +5,24 @@ function d_split_list(xs) {
     // *** Your answer here. ***
     const new_list = list();
     const length_of_xs = length(xs);
+    if (length_of_xs%2 === 0){
+        return even(xs,length_of_xs, 0, new_list);
+    }
+    else {
+        return odd(xs, length_of_xs, 0, new_list);
+    }
     
-    return even(xs,length_of_xs, 0, new_list);
     
     
     
         
+}
+
+function odd(xs, length_of_xs, counter, lists){
+    return counter === ((length_of_xs -1) /2 +1)
+            ? pair(lists, xs)
+            : odd(remove(list_ref(xs, 0), xs),length_of_xs, counter + 1, 
+                append(lists, list(list_ref(xs, 0))));
 }
 
 function even(xs, length_of_xs, counter, lists){
@@ -30,6 +42,6 @@ function even(xs, length_of_xs, counter, lists){
 
 // TEST:
 const my_list1 = list(1, 2, 3, 4, 5, 6);
-//const my_list2 = list(5, 4, 3, 2, 1);
-d_split_list(my_list1);
-// d_split_list(my_list2);
+const my_list2 = list(5, 4, 3, 2, 1);
+//d_split_list(my_list1);
+d_split_list(my_list2);
