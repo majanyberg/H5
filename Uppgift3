@@ -7,29 +7,21 @@ function d_split_list(xs) {
     const new_list = list();
     const length_of_xs = length(xs);
     if (length_of_xs%2 === 0){
-        return even(xs,length_of_xs, 0, new_list);
+        
+        return split_list(xs,length_of_xs/2, 0, new_list);
     }
     else {
-        return odd(xs, length_of_xs, 0, new_list);
+        return split_list(xs, ((length_of_xs-1)/2 + 1), 0, new_list);
     }
         
 }
 
-function odd(xs, length_of_xs, counter, lists){
-    return counter === ((length_of_xs -1) /2 +1)
+function split_list(xs, n, counter, lists){
+    return counter === n
             ? pair(lists, xs)
-            : odd(remove(list_ref(xs, 0), xs),length_of_xs, counter + 1, 
+            : split_list(remove(list_ref(xs, 0), xs),n, counter + 1, 
                 append(lists, list(list_ref(xs, 0))));
 }
-
-function even(xs, length_of_xs, counter, lists){
-        
-        return counter === length_of_xs/2
-            ? pair(lists, xs)
-            : even(remove(list_ref(xs, 0), xs),length_of_xs, counter + 1, 
-                append(lists, list(list_ref(xs, 0))));
-}
-
 
 // Copy-and-paste your d_merge function for Question 2 here.
 function d_merge(xs, ys) {
