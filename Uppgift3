@@ -1,0 +1,67 @@
+// QUESTION 3
+
+// Copy-and-paste your d_split_list function for Question 1 here.
+function d_split_list(xs) {
+
+    // *** Your answer here. ***
+    const new_list = list();
+    const length_of_xs = length(xs);
+    if (length_of_xs%2 === 0){
+        return even(xs,length_of_xs, 0, new_list);
+    }
+    else {
+        return odd(xs, length_of_xs, 0, new_list);
+    }
+        
+}
+
+function odd(xs, length_of_xs, counter, lists){
+    return counter === ((length_of_xs -1) /2 +1)
+            ? pair(lists, xs)
+            : odd(remove(list_ref(xs, 0), xs),length_of_xs, counter + 1, 
+                append(lists, list(list_ref(xs, 0))));
+}
+
+function even(xs, length_of_xs, counter, lists){
+        
+        return counter === length_of_xs/2
+            ? pair(lists, xs)
+            : even(remove(list_ref(xs, 0), xs),length_of_xs, counter + 1, 
+                append(lists, list(list_ref(xs, 0))));
+}
+
+
+// Copy-and-paste your d_merge function for Question 2 here.
+function d_merge(xs, ys) {
+    
+    // *** Your answer here. ***
+    const new_list = append(xs, ys);
+    return sort(new_list);
+}
+
+function sort(xs) {
+    if (is_null(xs)){
+        return xs;
+    }
+    else{
+        const small = smallest(xs);
+        return append(list(small), sort(remove(small, xs)));
+    }
+
+}
+function smallest(xs){
+    return accumulate ((x,y) => x < y ? x : y, head(xs), tail(xs)); //is pair and head allowed?
+}
+
+function d_merge_sort(xs) {
+
+    // *** Your answer here. ***
+    const split_list = d_split_list(xs);
+    
+    const sorted_list = d_merge(head(split_list), tail(split_list));
+    return sorted_list;
+}
+
+// TEST:
+const my_list = list(7, 2, 4, 6, 9, 1, 5, 8, 3, 6);
+d_merge_sort(my_list);
