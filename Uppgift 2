@@ -1,26 +1,41 @@
+//Maja Nyberg och Eric Buxton
+
 // QUESTION 2
 
 function d_merge(xs, ys) {
+    // *** Your answer here. **
     
-    // *** Your answer here. ***
-    const new_list = append(xs, ys);
-    return sort(new_list);
+function m_append(xs, ys) {
+    
+    if (is_null(tail(xs))) {
+            set_tail(xs, ys);
+        } else if (head(tail(xs)) > head(ys)){
+            
+                const save = tail(xs); //save the previous tail before mutating
+                set_tail(xs, ys);
+                m_append(tail(xs), save);
+        }
+         else {
+                
+                m_append(tail(xs), ys);
+         }
+            
+    
 }
-
-function sort(xs) {
-    if (is_null(xs)){
+    if (head(ys) > head(xs)){
+        m_append(xs, ys);
         return xs;
     }
-    else {
-        const small = accumulate((x,y) => x < y ? x : y, 
-            head(xs), tail(xs)); //is head() and tail() allowed?
-        
-        return append(list(small), sort(remove(small, xs)));
+    else{
+        m_append(ys, xs);
+        return ys;
     }
+    return m_append(xs, ys);
 }
-
+ 
 
 // TEST:
+
 const my_list1 = list(2, 4, 5, 9);
 const my_list2 = list(3, 5, 8);
 d_merge(my_list1, my_list2);
