@@ -1,24 +1,62 @@
+//Maja Nyberg och Eric Buxton
+
 // QUESTION 1
+
 function d_split_list(xs) {
 
     // *** Your answer here. ***
-    const new_list = list();
+    
+    function tail_of_pair(xs, middle){
+        
+        if (length_of_xs % 2 === 0){
+            
+            return even_list(xs, middle);
+        }
+        else {
+            return odd_list(xs, middle);
+        }
+    }
+    function even_list(xs, middle){
+                return !(middle > 0)
+                ? xs
+                : even_list(tail(xs), middle-1);
+            }
+            
+    function odd_list(xs, middle){
+                return !(middle >= 0)
+                ? xs
+                : odd_list(tail(xs), middle-1);
+            }
+        
+    function head_of_pair(xs){
+        if (is_null(xs)){
+            
+            return xs;
+            
+        } else if (n< length_of_xs/2){
+            
+            n = n+1;
+            
+            set_tail(xs, head_of_pair(tail(xs)));
+            
+            return xs;
+            
+        } else {
+            
+            return head_of_pair(tail(xs));
+            
+        }
+    }
+    
+    
     const length_of_xs = length(xs);
-    if (length_of_xs%2 === 0){
-        
-        return split_list(xs,length_of_xs/2, 0, new_list);
-    }
-    else {
-        return split_list(xs, ((length_of_xs-1)/2 + 1), 0, new_list);
-    }
-        
-}
-
-function split_list(xs, n, counter, lists){
-    return counter === n
-            ? pair(lists, xs)
-            : split_list(remove(list_ref(xs, 0), xs),n, counter + 1, 
-                append(lists, list(list_ref(xs, 0))));
+    let n = 0;
+    
+    const tail_pair = tail_of_pair(xs, length_of_xs/2);
+    const head_pair = head_of_pair(xs);
+    
+    return pair(head_pair, tail_pair);
+    
 }
 
 // TEST:
